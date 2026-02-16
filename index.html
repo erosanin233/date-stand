@@ -901,7 +901,7 @@
         <div class="hd">
           <div>
             <h2>Release notes</h2>
-            <div class="sub">Патч с человеческим эффектом. Без лишней драмы, но с точностью.</div>
+            <div class="sub">Срочно нужен патч.</div>
           </div>
           <span class="badge neutral" id="relBadge">DRAFT</span>
         </div>
@@ -910,11 +910,11 @@
           <div class="notes">
             <div class="note">
               <h3>Исправление</h3>
-              <p>Найден баг: мы давно не виделись. Предлагаю хотфикс — встреча. Выбери день, потом время. Дальше — по факту.</p>
+              <p>Найден баг: мы давно не виделись. Нужен хотфикс.</p>
             </div>
             <div class="note">
               <h3>Примечание к релизу</h3>
-              <p>Стенд не давит. Он просто честно собирает параметры — как и положено хорошему QA.</p>
+              <p> Если что то не будет работать ты долбеоб.</p>
             </div>
           </div>
 
@@ -1136,21 +1136,27 @@
       return $$(sel, container).filter(el => el.offsetParent !== null);
     }
 
-    function openOverlay(id) {
-      const overlay = document.getElementById(id);
-      if (!overlay) return;
+   function openOverlay(id) {
+  const overlay = document.getElementById(id);
+  if (!overlay) return;
 
-      lastFocus = document.activeElement;
-      activeOverlay = overlay;
+  // если уже открыта другая модалка — закрываем её
+  if (activeOverlay && activeOverlay !== overlay) {
+    activeOverlay.classList.remove("open");
+    activeOverlay.setAttribute("aria-hidden", "true");
+  }
 
-      overlay.classList.add("open");
-      overlay.setAttribute("aria-hidden", "false");
+  lastFocus = document.activeElement;
+  activeOverlay = overlay;
 
-      const focusables = getFocusable(overlay);
-      (focusables[0] || overlay).focus();
+  overlay.classList.add("open");
+  overlay.setAttribute("aria-hidden", "false");
 
-      document.body.style.overflow = "hidden";
-    }
+  const focusables = getFocusable(overlay);
+  (focusables[0] || overlay).focus();
+
+  document.body.style.overflow = "hidden";
+}
 
     function closeOverlay(id) {
       const overlay = document.getElementById(id);
