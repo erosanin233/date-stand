@@ -817,6 +817,15 @@
     object-fit: contain;
     flex: 0 0 auto;
   }
+ #errOverlay #gifBox img{
+  display: block;
+  width: 160px;      /* 👈 основной размер (поменяй) */
+  max-width: 100%;   /* чтобы не вылезала за модалку на телефоне */
+  height: auto;      /* сохраняет пропорции */
+  margin: 10px auto; /* центрируем */
+  border-radius: 14px;
+  object-fit: contain;
+}
   </style>
 </head>
 
