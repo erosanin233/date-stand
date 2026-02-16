@@ -1535,15 +1535,26 @@
     }
 
     function payload(action) {
-      return {
-        name: INVITEE_NAME,
-        selected_slot: getSelectedSlotString(),
-        risk_flag: !!$("#riskFlag").checked,
-        comment: buildCommentForPayload(action),
-        action
-      };
-    }
+  const wishes = safeText($("#wishes")?.value).trim();
+  const alt = safeText($("#alt")?.value).trim();
 
+  return {
+    name: INVITEE_NAME,
+
+    // ✅ то, что тебе нужно отдельными полями
+    day: selectedDay,
+    time: selectedTime,
+    will_be_fucked_off: !!$("#riskFlag")?.checked, // да/нет
+    wishes: wishes,                                 // полный текст пожеланий
+    alt: action === "reschedule" ? alt : "",         // полный текст "другой вариант" (только для reschedule)
+
+    // (оставил старые поля, чтобы ничего не сломать в Make/логике)
+    selected_slot: getSelectedSlotString(),
+    risk_flag: !!$("#riskFlag")?.checked,
+    comment: buildCommentForPayload(action),
+    action
+  };
+}
     async function send(action) {
       const slot = getSelectedSlotString();
 
